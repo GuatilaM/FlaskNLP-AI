@@ -1,3 +1,5 @@
+"""Instantiates a Flask app server"""
+
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detection
 
@@ -12,12 +14,12 @@ def render_index():
 @app.route('/emotionDetector')
 def detect_emotions():
     """Uses emotion detector to process a text and output an emotion analysis"""
-    
+
     text_to_analyze = request.args.get('textToAnalyze')
     emotions_detected = emotion_detection(text_to_analyze)
-    
+
     # catch no input error
-    if emotions_detected['dominant_emotion'] is None: 
+    if emotions_detected['dominant_emotion'] is None:
         return 'Invalid text! Please try again!'
 
     response = f"""
