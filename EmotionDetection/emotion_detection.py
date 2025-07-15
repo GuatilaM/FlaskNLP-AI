@@ -9,6 +9,12 @@ def emotion_detection(text_to_analyse):
     payload = { "raw_document": { "text": text_to_analyse } }
 
     response = requests.post(url, headers=headers, json=payload)
+    # handle no input error
+    if response.status_code == 400:
+        data = {
+            'dominant_emotion': None
+        }
+        return data
     
     # extract emotions and scores
     res_data = json.loads(response.text)
